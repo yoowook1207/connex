@@ -19,11 +19,6 @@ export default function Home() {
         <div className="p-8">
             <header className="flex justify-between items-center mb-8">
                 <h1 className="text-2xl font-bold">ConnX</h1>
-                {/*<input*/}
-                {/*    type="text"*/}
-                {/*    placeholder="What do you want to learn?"*/}
-                {/*    className="border rounded px-4 py-2"*/}
-                {/*/>*/}
                 <div className="relative ml-4 group">
                     <div className="flex items-center cursor-pointer">
                         <Image
