@@ -17,25 +17,27 @@ const authOptions: NextAuthOptions = {
         updateAge: 24 * 60 * 60, // Default session update age: 1 day
     },
     callbacks: {
-        async signIn({profile}) {
+        async signIn({profile, account}) {
+            console.log(account?.id_token);
             if (!profile || !profile.email || !profile.name) {
                 console.error('Email or name is missing in the user object:', profile);
                 return false; // Prevent sign-in if critical information is missing
             }
-            const existingUser = await findUserByEmail(profile.email);
-            if (!existingUser || !existingUser.email) {
-                await createUser({
-                    email: profile.email!,
-                    firstName: profile.given_name || '',
-                    lastName: profile.family_name || '',
-                    role: null,
-                });
-            }
+            // const existingUser = await findUserByEmail(profile.email);
+            // if (!existingUser || !existingUser.email) {
+            //     await createUser({
+            //         email: profile.email!,
+            //         firstName: profile.given_name || '',
+            //         lastName: profile.family_name || '',
+            //         role: null,
+            //     });
+            // }
             return true;
         },
         async jwt({token, account, profile}) {
-            const existingUser = await findUserByEmail(token!.email as string);
-            token.role = existingUser.role;
+            // const existingUser = await findUserByEmail(token!.email as string);
+            // token.role = existingUser.role;
+            token.role = 'teacher';
 
             if (account && profile) {
                 const jwtPayload = {

@@ -2,10 +2,24 @@ import {signOut, useSession} from 'next-auth/react';
 import {useRouter} from "next/router";
 import Image from 'next/image';
 import {LoginPage} from "~/components/LoginComponent";
+import {Calendar, momentLocalizer} from 'react-big-calendar';
+import moment from 'moment';
+import React, {useMemo} from "react";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import {HomeCalendar} from "~/components/HomeCalendar";
+
 
 export default function Home() {
     const {data: session} = useSession();
     const router = useRouter();
+    const localizer = momentLocalizer(moment);
+
+    const { defaultDate} = useMemo(
+        () => ({
+            defaultDate: new Date(),
+        }),
+        []
+    )
 
     if (!session) {
         return <LoginPage/>;
@@ -34,7 +48,9 @@ export default function Home() {
                         <ul className="py-2">
                             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Profile</li>
                             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-                            <li onClick={() => signOut()} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Log Out</li>
+                            <li onClick={() => signOut()} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Log
+                                Out
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -42,11 +58,18 @@ export default function Home() {
 
             <section className="mb-12">
                 <h2 className="text-xl font-semibold mb-4">Weekly Time Schedule</h2>
+                <div>
+                    <HomeCalendar/>
+                </div>
+            </section>
+
+            <section className="mb-12">
+                <h2 className="text-xl font-semibold mb-4">Weekly Time Schedule</h2>
                 <div className="grid grid-cols-3 gap-4">
                     {['Google UX Design', 'AngularJS', 'Python for Data Science'].map((title, index) => (
                         <div key={index} className="border rounded p-4 shadow-sm">
                             <Image
-                                src="/images/SungWookYoo-min.png" // Example image path
+                                src="/images/SungWookYoo-min.png"
                                 alt={title}
                                 width={150}
                                 height={100}
@@ -59,32 +82,13 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mb-12">
-                <h2 className="text-xl font-semibold mb-4">Most Popular Certificates</h2>
-                <div className="grid grid-cols-4 gap-4">
-                    {['IBM Data Science', 'IBM Data Analyst', 'Data Science with Python'].map((title, index) => (
-                        <div key={index} className="border rounded p-4 shadow-sm">
-                            <Image
-                                src="/assets/images/SungWookYoo-min.png"
-                                alt={title}
-                                width={150}
-                                height={100}
-                                className="mb-2"
-                            />
-                            <h3 className="text-lg font-medium">{title}</h3>
-                            <p className="text-sm text-gray-500">Professional Certificate</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
             <section>
                 <h2 className="text-xl font-semibold mb-4">Personalized Specializations for You</h2>
                 <div className="grid grid-cols-4 gap-4">
                     {['AI Skills', 'Machine Learning', 'Data Analysis'].map((title, index) => (
                         <div key={index} className="border rounded p-4 shadow-sm">
                             <Image
-                                src="/assets/images/SungWookYoo-min.png"
+                                src="/images/SungWookYoo-min.png"
                                 alt={title}
                                 width={150}
                                 height={100}

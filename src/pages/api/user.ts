@@ -1,5 +1,6 @@
 // src/api/user.ts
 import axios from "axios";
+import {getServerSession} from "next-auth";
 
 //     const config = {
 //       headers: {
@@ -10,6 +11,29 @@ import axios from "axios";
 //         ...(org_level ? {org_level} : {}),
 //       },
 //     };
+
+export const testGoogleTokenAuthCall = async () => {
+  const baseUrl = "https://qkfmezw7bd.execute-api.us-east-1.amazonaws.com";
+  const session = await getServerSession();
+  if (!session) {
+    throw new Error('No session found');
+  }
+  const token = session.accessToken;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  try {
+    const res = await axios.get(`${baseUrl}/external-auth`, config);
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.error('Failed to create user', error);
+    throw error;
+  }
+}
+
 export const createUser = async (userData: {
   email: string;
   role: string | null;
