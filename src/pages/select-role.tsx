@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import {signIn, signOut, useSession} from 'next-auth/react';
-import {updateUserRole} from '@/pages/api/user';
+import {updateUserRole} from '~/pages/api/user';
 
 const SelectRolePage = () => {
     const {data: session} = useSession();
@@ -23,9 +23,11 @@ const SelectRolePage = () => {
         <div>
             <button onClick={() => signOut()}>Sign out</button>
             <h1>Welcome! Please select your role and re-signin please!</h1>
-            <button onClick={() => handleRoleSelection('teacher')}>Teacher</button>
-            <button onClick={() => handleRoleSelection('parent')}>Parent</button>
-            <button onClick={() => handleRoleSelection('student')}>Student</button>
+            <div>
+                <button className="p-1 hover:bg-amber-300" onClick={() => handleRoleSelection('teacher')}>Teacher</button>
+                <button className="p-1 hover:bg-amber-300" onClick={() => handleRoleSelection('parent')}>Parent</button>
+                <button className="p-1 hover:bg-amber-300" onClick={() => handleRoleSelection('student')}>Student</button>
+            </div>
         </div>
     );
 };

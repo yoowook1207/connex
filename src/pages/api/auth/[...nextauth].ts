@@ -28,7 +28,7 @@ const authOptions: NextAuthOptions = {
                     email: profile.email!,
                     firstName: profile.given_name || '',
                     lastName: profile.family_name || '',
-                    role: null,
+                    role: "",
                 });
             }
             return true;
